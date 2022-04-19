@@ -1,6 +1,9 @@
 <?php
+session_start();
 
 require 'recaptchaValid.php';
+
+require 'include/db-connection.php';
 
 if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_password']) && isset($_POST['nickname']) && isset($_POST['g-recaptcha-response'])){
 
@@ -10,7 +13,7 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_
 
     }
 
-    if(!preg_match('/^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/', $_POST['password'])){
+    if(!preg_match('/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[ !"#\$%&\'()*+,\-.\/:;<=>?@[\\\\\]\^_`{\|}~]).{8,4096}$/u', $_POST['password'])){
 
         $errors[] = '<p class="alert alert-danger">Le mot de passe doit comprendre au moins 8 caractères dont 1 lettre minuscule, 1 majuscule, un chiffre et un caractère spécial.</p>';
 
@@ -34,9 +37,42 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_
 
     }
 
+    $userInfo = $db->prepare("SELECT * FROM users WHERE email=?");
+
+    $userInfo->execute([$_POST['email']]);
+
+    $user = $userInfo->fetch();
+
+    if($user){
+
+        $errors[] = '<p class="alert alert-danger">Cette adresse e-mail a déjà été utilisé !</p>';
+
+    }
+
     if(!isset($errors)){
 
+        $userInfo = $db->prepare("INSERT INTO users (email, password, pseudonym, register_date) VALUES (?, ?, ?, ?)");
+
+        $querySuccess = $userInfo->execute([
+
+            $_POST['email'],
+            password_hash($_POST['password'], PASSWORD_BCRYPT),
+            $_POST['nickname'],
+            Date('Y-m-d H:i:s'),
+
+    ]);
+
+    if($querySuccess){
+
         $success = '<p class="alert alert-success">Votre compte a bien été créé !</p>';
+
+    } else{
+
+        $errors [] = '<p class="alert alert-danger">Inscription échoué... Veuillez réessayez !';
+
+    }
+
+$userInfo->closeCursor();
 
     }
 
@@ -96,12 +132,12 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['confirm_
 
                         <div class="mb-3">
                             <label for="password" class="form-label">Mot de passe <span class="link-danger">*</label>
-                            <input type="text" name="password" class="form-control" id="password">
+                            <input type="password" name="password" class="form-control" id="password">
                         </div>
 
                         <div class="mb-3">
                             <label for="confirm_password" class="form-label">Confirmation mot de passe <span class="link-danger">*</label>
-                            <input type="text" name="confirm_password" class="form-control" id="confirm_password">
+                            <input type="password" name="confirm_password" class="form-control" id="confirm_password">
                         </div>
 
                         <div class="mb-3">
