@@ -14,7 +14,7 @@
           <a class="nav-link" href="#">Liste des Fruits</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Inscription</a>
+          <a class="nav-link" href="register.php">Inscription</a>
         </li>
         </li>
         <li class="nav-item">
