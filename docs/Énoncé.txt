@@ -61,7 +61,7 @@ Conseils sur le projet :
 
     BONUS 1 : Rajouter une vérification : si l'adresse email entrée dans le formulaire est déjà utilisée, afficher une erreur type "Cette adresse email est déjà prise !"
 
-    BONUS 2 : Afficher les erreurs en dessous du champ qui leur correspond au lieu de les afficher au dessus du formulaire (voir la version "bonus" avancée de la page d'inscription sur la demo en ligne)
+    BONUS 2 : Afficher les erreurs en dessous du champ qui leur correspond au lieu de les afficher au dessus du formulaire (voir la version "bonus" avancée de la page d'inscription sur la demo en ligne) TODO:
 
 ----------------------------------------------------------------------
 
@@ -78,7 +78,7 @@ Conseils sur le projet :
     Si le compte existe bien, vérifier si le mot de passe est correct. Si le mot de passe n'est pas bon, afficher une erreur type "Le mot de passe n'est pas bon !"
     Si le mot de passe est le bon, stocker les infos de l'utilisateur en session puis afficher un message de succès de connexion + masquer le formulaire.
 
-    BONUS 1 : Afficher les erreurs en dessous du champ qui leur correspond au lieu de les afficher au dessus du formulaire (voir la version "bonus" avancée de la page de connexion sur la demo en ligne)
+    BONUS 1 : Afficher les erreurs en dessous du champ qui leur correspond au lieu de les afficher au dessus du formulaire (voir la version "bonus" avancée de la page de connexion sur la demo en ligne) TODO:
 
 ----------------------------------------------------------------------
 

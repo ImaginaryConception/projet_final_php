@@ -31,9 +31,23 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
                 $success = '<p class="alert alert-success">Vous êtes bien connecté !</p>';
 
+                $pseudonym = $db->prepare("SELECT pseudonym FROM users WHERE email=?");
+
+                $pseudonym->execute([$_POST['email']]);
+
+                $username = $pseudonym->fetch(PDO::FETCH_ASSOC);
+
+                $register_date = $db->prepare("SELECT register_date FROM users WHERE email=?");
+
+                $register_date->execute([$_POST['email']]);
+
+                $register = $register_date->fetch(PDO::FETCH_ASSOC);
+
                 $_SESSION['user'] = [
                     'email' => $_POST['email'],
                     'password' => $_POST['password'],
+                    'pseudonym' => $username,
+                    'register_date' => $register,
                 ];
 
             } else{
@@ -48,6 +62,8 @@ if(isset($_POST['email']) && isset($_POST['password'])){
 
         }
 
+        $register_date->closeCursor();
+        $pseudonym->closeCursor();
         $userInfo->closeCursor();
 
         }

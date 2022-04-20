@@ -49,10 +49,13 @@ if(isset($_SESSION['user']['email'])){
                     <div class="row">
                         <div class="col-md-6 col-12 offset-md-3 my-4">
                             <ul class="list-group">
-                                <li class="list-group-item"><strong>Email</strong> : <?php foreach($userInfos as $userInfo){echo $userInfo;} ?></li>
 
-                                <li class="list-group-item"><strong>Pseudo</strong> : <?php  ?></li>
-                                <li class="list-group-item"><strong>Date d'inscription</strong> : <?php  ?></li>
+                                <li class="list-group-item"><strong>Email</strong> : <?php echo $_SESSION['user']['email'] ?></li>
+
+                                <li class="list-group-item"><strong>Pseudo</strong> : <?php echo $_SESSION['user']['pseudonym']['pseudonym'] ?></li>
+
+                                <li class="list-group-item"><strong>Date d'inscription</strong> : <?php echo $_SESSION['user']['register_date']['register_date'] ?></li>
+
                             </ul>
                         </div>
                     </div>
